@@ -1,0 +1,30 @@
+# DMOD Resource File for touchtest
+# This file specifies where resources should be installed
+
+# === Core Module ===
+# Main module file - always installed
+dmf=./${module}.dmf => ${destination}/${module}.dmf [origin=${dmf_dir}/${module}.dmf]
+
+# Compressed module
+dmfc=./${module}.dmfc => ${destination}/${module}.dmfc [origin=${build_dir}/dmfc/${module}.dmfc]
+
+# Dependencies file (if exists)
+dmd=./${module}.dmd => ${destination}/${module}.dmd [origin=${dmf_dir}/${module}.dmd]
+
+# Version information
+version=./${module}_version.txt => ${destination}/${module}_version.txt [origin=${dmf_dir}/${module}_version.txt]
+
+# === Documentation ===
+# README file
+# NOTE: ${repo_dir} is the top-level repo root (CMAKE_SOURCE_DIR), since
+# touchtest is built via add_subdirectory() from dmcst328's own CMakeLists.txt -
+# so paths here are given relative to the repo root, not to tools/touchtest
+# itself.
+readme=./README.md => ${destination}/${module}/README.md [origin=${repo_dir}/tools/touchtest/README.md]
+
+# === License ===
+# License file (shared with the rest of the dmcst328 repository)
+license=./LICENSE => ${destination}/${module}/LICENSE [origin=${repo_dir}/LICENSE]
+
+# Adding itself
+dmr=./${module}.dmr => ${destination}/${module}/${module}.dmr [origin=${repo_dir}/tools/touchtest/${module}.dmr]
