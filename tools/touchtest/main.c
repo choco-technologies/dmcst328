@@ -1,6 +1,7 @@
 #include "dmod.h"
 #include "dmdrvi_ioctl.h"
 #include <string.h>
+#include <errno.h>
 
 #define DOT_SIZE        16U
 #define DOT_COLOR       0xFFFF8000U         /* orange; the contacts that are lifted are cleared to black */
@@ -77,7 +78,7 @@ int main(int argc, char *argv[])
         int ret = Dmod_Ioctl(touch, DMDRVI_IOCTL_INPUT_WAIT_EVENT, &timeout);
         if (ret != 0)
         {
-            if (ret != -110)                                    /* -ETIMEDOUT: nothing happened */
+            if (ret != -ETIMEDOUT)                              /* nothing happened (the value of errno.h of the toolchain: 110 or 116) */
             {
                 Dmod_Printf("touchtest: WAIT_EVENT failed (%d)\n", ret);
                 failed++;
